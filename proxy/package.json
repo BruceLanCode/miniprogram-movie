@@ -13,6 +13,7 @@
   "author": "lantu",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "koa": "^2.5.0",
     "koa-router": "^7.4.0",
     "request": "^2.83.0"

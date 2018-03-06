@@ -1,5 +1,5 @@
 // pages/movies/movies.js
-
+var util = require('../../utils/util.js');
 var app = getApp();
 Page({
   data: {
@@ -13,7 +13,11 @@ Page({
 
   onLoad() {
     var inTheaterUrl = app.globalData.doubanBase + '/v2/movie/in_theaters?start=0&count=3';
+    var comingSoonUrl = app.globalData.doubanBase + '/v2/movie/coming_soon?start=0&count=3';
+    var top250Url = app.globalData.doubanBase + '/v2/movie/top250?start=0&count=3';
     this.getMovieListData(inTheaterUrl, "inTheaters", "正在热映");
+    this.getMovieListData(comingSoonUrl, "comingSoon", "即将上映");
+    this.getMovieListData(top250Url, "top250", "豆瓣Top250");
   },
 
   getMovieListData(url, settedKey, categoryTitle) {
@@ -21,10 +25,6 @@ Page({
     wx.request({
       url,
       method: 'GET',
-      header: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36",
-        "Cookie": "bid=njxJV-K1nWE; __utma=30149280.477029892.1520304162.1520304162.1520304162.1; __utmc=30149280; __utmz=30149280.1520304162.1.1.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; __utmt=1; __utmb=30149280.6.5.1520304162"
-      },
       success: function(res) {
         that.processDoubanData(res.data, settedKey, categoryTitle);
       }
@@ -33,6 +33,47 @@ Page({
 
   processDoubanData(moviesDouban, settedKey, categoryTitle) {
     var movies = [];
+    for (var idx in moviesDouban.subjects) {
+      var subject =   moviesDouban.subjects[idx];
+      var title = subject.title;
+      if (title.length > 6) {
+        title = title.substring(0,6) + '...';
+      }
+      var temp = {
+        stars: util.convertToStarsArray(subject.rating.stars),
+        title,
+        average: subject.rating.average,
+        coverageUrl: subject.images.large,
+        movieId: subject.id
+      }
+      movies.push(temp);
+      var readyData = {};
+      readyData[settedKey] = {
+        categoryTitle,
+        movies
+      };
+      this.setData(readyData);
+    }
+  },
 
+  onBindFocus() {
+    this.setData({
+      containerShow: false,
+      searchPanelShow: true
+    })
+  },
+
+  onCancelTap() {
+    this.setData({
+      containerShow: true,
+      searchPanelShow: false,
+      searchResult: {}
+    })
+  },
+
+  onBlur(event) {
+    var text = event.detail.value;
+    var searchUrl = app.globalData.doubanBase + '/v2/movie/search?q=' + text;
+    this.getMovieListData(searchUrl, "searchResult", "");
   }
 })
