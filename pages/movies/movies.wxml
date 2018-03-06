@@ -1,2 +1,12 @@
 <!--pages/movies/movies.wxml-->
-<text>pages/movies/movies.wxml</text>
+<import src="movie-list/movie-list-template" />
+<view class="search">
+  <icon type="search" class="search-img" color="#405f80" size="13"></icon>
+  <input type="text" placeholder="你的名字" placeholder-class="placeholder"></input>
+  <image src='/images/icon/xx.png' class='xx-img'></image>
+</view>
+<view class='container'>
+  <view class='movie-template'>
+    <template is="movieListTemplate" />
+  </view>
+</view>

@@ -1,0 +1,3 @@
+<template name="movieTemplate">
+  <text>lantu</text>
+</template>
