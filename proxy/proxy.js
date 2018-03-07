@@ -37,6 +37,13 @@ router.get('/v2/movie/search', async (ctx, next) => {
     await next();
 });
 
+router.get('/v2/movie/subject/:id', async (ctx, next) => {
+    var id = ctx.params.id;
+    var res = await request(`https://api.douban.com/v2/movie/subject/${id}`);
+    ctx.body = res.body;
+    await next();
+});
+
 app.use(router.routes());
 app.listen(4000,() => {
     console.info('listening port 4000');

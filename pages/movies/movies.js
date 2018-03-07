@@ -75,5 +75,12 @@ Page({
     var text = event.detail.value;
     var searchUrl = app.globalData.doubanBase + '/v2/movie/search?q=' + text;
     this.getMovieListData(searchUrl, "searchResult", "");
+  },
+
+  onMoreTap(event) {
+    var category = event.currentTarget.dataset.category;
+    wx.navigateTo({
+      url: '/pages/movies/more-movie/more-movie?category=' + category
+    })
   }
 })

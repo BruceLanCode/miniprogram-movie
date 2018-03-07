@@ -12,13 +12,13 @@
     <template is="movieListTemplate" data="{{...inTheaters}}"/>
   </view>
 
-  <view class='movie-template'>
+  <!-- <view class='movie-template'>
     <template is="movieListTemplate" data="{{...comingSoon}}"/>
   </view>
 
   <view class='movie-template'>
     <template is="movieListTemplate" data="{{...top250}}"/>
-  </view>
+  </view> -->
 </view>
 
 <view class='search-panel' wx:if="{{searchPanelShow}}">
