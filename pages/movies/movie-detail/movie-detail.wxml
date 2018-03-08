@@ -20,7 +20,7 @@
       </text>
     </view>
   </view>
-  <image class='movie-img' src='{{movie.movieImg}}'></image>
+  <image class='movie-img' src='{{movie.movieImg}}' catchtap='viewMoviePhoto'></image>
   <view class='summary'>
     <view class='original-title'>
       <text>{{movie.originalTitle}}</text>

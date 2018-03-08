@@ -75,6 +75,13 @@ Page({
     wx.hideNavigationBarLoading();
     wx.stopPullDownRefresh();
   },
+
+  onMovieTap(event) {
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: '/pages/movies/movie-detail/movie-detail?id=' + movieId
+    })
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
@@ -82,7 +89,7 @@ Page({
     var refreshUrl = this.data.requestUrl + '?start=0&count=20';
     this.data.movies = {};
     this.data.isEmpty = true;
-    this.totalCount = 0;
+    this.data.totalCount = 0;
     util.http(refreshUrl, this.processDoubanData);
     wx.showNavigationBarLoading();
   },

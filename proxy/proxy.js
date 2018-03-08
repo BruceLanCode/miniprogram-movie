@@ -43,6 +43,12 @@ router.get('/v2/movie/subject/:id', async (ctx, next) => {
     ctx.body = res.body;
     await next();
 });
+router.get('/v2/movie/subject/:id/photos', async (ctx, next) => {
+    var id = ctx.params.id;
+    var res = await request(`https://api.douban.com/v2/movie/subject/${id}/photos`);
+    ctx.body = res.body;
+    await next();
+});
 
 app.use(router.routes());
 app.listen(4000,() => {

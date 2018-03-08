@@ -82,5 +82,12 @@ Page({
     wx.navigateTo({
       url: '/pages/movies/more-movie/more-movie?category=' + category
     })
+  },
+
+  onMovieTap(event) {
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: '/pages/movies/movie-detail/movie-detail?id=' + movieId
+    })
   }
 })

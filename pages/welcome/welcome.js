@@ -1,6 +1,9 @@
 Page({
   onTap() {
-    wx.navigateTo({
+    // wx.navigateTo({
+    //   url: '/pages/posts/posts',
+    // })
+    wx.switchTab({
       url: '/pages/posts/posts',
     })
   }
